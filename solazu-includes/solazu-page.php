@@ -12,20 +12,20 @@ function slz_index(){
 	<div class="slz_home">
 		<h1><?php esc_html_e('Solazu Exporter', 'slz_exporter'); ?></h1>
 		<div class="slz_description">
-			Our core mantra at Redux is backwards compatibility. With hundreds of thousands of instances worldwide, you can be assured that we will take care of you and your clients.
+			<?php esc_html_e('Help you to export all data of wordpress site. The exported data will contain your posts, pages, comments, menu, widget, custom fields, categories, and tags.', 'slz_exporter'); ?>
 		</div>
 		<div class="slz_logo">
 			<img src="<?php echo esc_url ( plugins_url( 'solazu-images/solazu-logo.png', dirname( __FILE__ ) ) ); ?>" />
 		</div>
 		<h2 class="nav-tab-wrapper">
 			<a class="nav-tab nav-tab-active" href="#"><?php esc_html_e('Dashboard', 'slz_exporter'); ?></a> 
-			<a class="nav-tab" href="https://www.google.com/search?sourceid=chrome-psyapi2&amp;ion=1&amp;espv=2&amp;ie=UTF-8&amp;q=google.%20please%20support%20me&amp;oq=google.%20please%20support%20me&amp;aqs=chrome..69i57j69i64.5570j0j7" target="_blank"><?php esc_html_e('Support', 'slz_exporter'); ?></a>
+			<a class="nav-tab" href="https://www.facebook.com/nguyencanh.khanhtrinh.7" target="_blank"><?php esc_html_e('Support', 'slz_exporter'); ?></a>
 			<a class="nav-tab" href="https://github.com/KhanhTrinh2094/solazu-exporter" target="_blank"><?php esc_html_e('Github', 'slz_exporter'); ?></a>
 		</h2>
 		<div class="slz_content">
 			<form action="" method="post">
 				<div class="slz_intro">
-					<p>Control user group role access to the features and options of Visual Composer - manage WordPress default and custom roles.</p>
+					<p>All fields have assigned default values. Don't edit if you are not sure.</p>
 				</div>
 				<div id="accordion" class="slz_accordion">
 					<h3><?php esc_html_e('General Settings', 'slz_exporter'); ?></h3>
@@ -65,7 +65,7 @@ function slz_index(){
 							<tbody>
 								<tr>
 									<td colspan="2">
-										<?php esc_html_e('Your theme supports ' . esc_html( count ( $menus ) ) . ' menus. Select which menu appears in each location.', 'slz_exporter'); ?>
+										<?php esc_html_e('Your theme supports ' . esc_html( count ( $menus ) ) . ' menus. Select which menu appears in each location to export.', 'slz_exporter'); ?>
 									</td>
 								</tr>
 								<?php
