@@ -1,0 +1,104 @@
+"Project-Id-Version: slz_exporter\n"
+"POT-Creation-Date: 2016-06-05 20:28+0700\n"
+"PO-Revision-Date: 2016-06-03 19:47+0700\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: esc_html_e;esc_html__;_n:1,2;_n_noop:1,2;_nx:1,2;"
+"_nx_noop:1,2\n"
+"Last-Translator: \n"
+"Language: en_US\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: solazu-includes/solazu-menu.php:23 solazu-includes/solazu-menu.php:24
+#: solazu-includes/solazu-page.php:13
+msgid "Solazu Exporter"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:15
+msgid ""
+"Help you to export all data of wordpress site. The exported data will "
+"contain your posts, pages, comments, menu, widget, custom fields, "
+"categories, and tags."
+msgstr ""
+
+#: solazu-includes/solazu-page.php:21
+msgid "Dashboard"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:22
+msgid "Support"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:23
+msgid "Github"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:31
+msgid "General Settings"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:37
+msgid "Sample Data Name:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:45
+msgid "Sample Data Description:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:53
+msgid "Demo Url:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:68
+msgid "Your theme supports "
+msgstr ""
+
+#: solazu-includes/solazu-page.php:81
+msgid "Select a Menu"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:103
+msgid "Demo Tag:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:106
+msgid "Recommend"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:111
+msgid "Data Author:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:119
+msgid "Author URL:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:127
+msgid "Export Date:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:135
+msgid "Redux Opt Name:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:143
+msgid "Content file name:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:151
+msgid "Theme option file name:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:159
+msgid "Widget file name:"
+msgstr ""
+
+#: solazu-includes/solazu-page.php:167
+msgid "Screenshot file name:"
+msgstr ""
