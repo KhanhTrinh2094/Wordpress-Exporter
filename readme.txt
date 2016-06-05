@@ -1,5 +1,7 @@
 === Solazu Importer ===
-Contributors: stevengliebe, churchthemes
+Contributors: trinh.nck
+Author : Nguyễn Cảnh Khánh Trình
+Facebook : https://www.facebook.com/nguyencanh.khanhtrinh.7
 Tags: widgets, widget, importer, exporter, import, export, backup
 Requires at least: 3.5
 Tested up to: 4.5.2
