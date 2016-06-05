@@ -77,7 +77,7 @@ function slz_index(){
 										<?php echo esc_html( $description ); ?>
 									</td>
 									<td>
-										<select name="slz[menu][<?php echo esc_attr( $location ); ?>]" id="locations-<?php echo esc_attr( $location ); ?>" required="required" >
+										<select name="slz[menu][<?php echo esc_attr( $location ); ?>]" id="locations-<?php echo esc_attr( $location ); ?>">
 											<option value=""><?php printf( '&mdash; %s &mdash;', esc_html__( 'Select a Menu' , 'slz_exporter' ) ); ?></option>
 											<?php foreach ( $nav_menus as $menu ) : ?>
 												<?php $selected = isset( $menu_locations[$location] ) && $menu_locations[$location] == $menu->term_id; ?>
