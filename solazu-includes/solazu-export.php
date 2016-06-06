@@ -358,7 +358,7 @@ $data .= '<rss version="2.0"
 
 $data .= '<channel>
 	<title>' . get_bloginfo( 'name' ) . '</title>
-	<link>' . get_bloginfo( 'url' ) . '</link>
+	<link>' . urlencode( get_bloginfo( 'url' ) ) . '</link>
 	<description>' . get_bloginfo( 'description' ) . '</description>
 	<pubDate>' . date( 'D, d M Y H:i:s +0000' ) . '</pubDate>
 	<language>' . get_bloginfo( 'language' ) . '</language>
@@ -412,10 +412,10 @@ $data .= wxr_authors_list( $post_ids );
 				$data .= apply_filters( 'the_title_rss', $post->post_title );
 				$data .= '
 		</title>
-		<link>' . (get_permalink()) . '</link>
+		<link>' . urlencode(get_permalink()) . '</link>
 		<pubDate>' . mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false ) . '</pubDate>
 		<dc:creator>' . wxr_cdata( get_the_author_meta( 'login' ) ) . '</dc:creator>
-		<guid isPermaLink="false">' . (get_the_guid()) . '</guid>
+		<guid isPermaLink="false">' . urlencode(get_the_guid()) . '</guid>
 		<description></description>
 		<content:encoded>' . wxr_cdata( apply_filters( 'the_content_export', $post->post_content ) ) . '
 		</content:encoded>
