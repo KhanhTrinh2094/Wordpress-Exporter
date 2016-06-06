@@ -232,4 +232,94 @@ function slz_remove_folder( $dir ) {
 	return rmdir($dir); 
 } 
 
+/**
+ * Process post method
+ *
+ * @since 1.0
+ */
+function post_excute(){
+
+	if( !empty( $_POST ) ){
+		$post_data = $_POST['slz'];
+
+		// make temp directory
+		slz_make_dir('slz-temp');
+
+		// temp directory path
+		$temp_dir = plugin_dir_path( __FILE__ ) . 'slz-temp/';
+
+		// make file name in server
+		$sitename = sanitize_key( get_bloginfo( 'name' ) );
+		if ( ! empty( $sitename ) ) {
+			$sitename .= '.';
+		}
+		$date = date( 'Y-m-d' );
+		$zip_filename = $sitename . 'wordpress.' . $date . '.zip';
+
+		// save wordpress content to xml file
+		slz_save_file( $temp_dir . $post_data['wordpress_content_file'], slz_export_wp( array( "content" => "all" ) ) );
+		// save widget data to json file
+		slz_save_file( $temp_dir . $post_data['widget_backup_file'], slz_generate_widget_data() );
+		// save redux theme option data to txt file
+		slz_save_file( $temp_dir . $post_data['theme_option_file'], json_encode ( get_option('swbignews_options') ) );
+		// copy screenshot file to temp folder
+		slz_copy_theme_file( 'screenshot.png', $post_data['screen_image_file'] );
+		// save exporter config data to config file
+		slz_save_file( $temp_dir . 'config.json', json_encode ( $post_data ) );
+		// save shinway custom sidebar to file
+		slz_save_file( $temp_dir . $post_data['custom_sidebar_file'], json_encode ( get_option(SWBIGNEWS_THEME_CUSTOM_SIDEBAR_NAME) ) );
+
+
+		// zip execute
+		$zip = new ZipArchive;
+
+		// create zip file
+		$zip->open( $temp_dir . $zip_filename, ZipArchive::CREATE );
+		// add wordpress xml content file to zip
+		$zip->addFile( $temp_dir . $post_data['wordpress_content_file'], $post_data['wordpress_content_file'] );
+		// add widget json file to zip
+		$zip->addFile( $temp_dir . $post_data['widget_backup_file'], $post_data['widget_backup_file'] );
+		// add theme option file to zip
+		$zip->addFile( $temp_dir . $post_data['theme_option_file'], $post_data['theme_option_file'] );
+		// add screenshot file to zip
+		$zip->addFile( $temp_dir . $post_data['screen_image_file'], $post_data['screen_image_file'] );
+		// add custom sidebar file to zip
+		$zip->addFile( $temp_dir . $post_data['custom_sidebar_file'], $post_data['custom_sidebar_file'] );
+		// add exporter config file to zip
+		$zip->addFile( $temp_dir . 'config.json', 'config.json' );
+
+		// zip excute and close
+		$zip->close();
+
+		// Headers to prompt "Save As"
+		header( 'Content-Type: application/octet-stream' );
+		header( 'Content-Disposition: attachment; filename=' . $zip_filename );
+		header( 'Expires: 0' );
+		header( 'Cache-Control: must-revalidate' );
+		header( 'Pragma: public' );
+		header( 'Content-Length: ' . filesize( $temp_dir . $zip_filename ) );
+
+		// Clear buffering just in case
+		@ob_end_clean();
+		flush();
+
+		// Output file contents
+		readfile( $temp_dir . $zip_filename );
+
+		slz_remove_folder( $temp_dir );
+		// Stop execution
+		exit;
+	}
+}
+
+/**
+ * Process get method
+ *
+ * @since 1.0
+ */
+function get_excute(){
+	
+}
+
+
 ?>
