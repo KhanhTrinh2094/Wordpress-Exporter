@@ -8,6 +8,15 @@ function slz_index(){
 	$menus = get_registered_nav_menus();
 	$menu_locations = get_nav_menu_locations();
 	$my_theme = wp_get_theme();
+
+	if( empty( $opt_name ) ){
+		slz_die ( 'Cannot load Redux Framework. Please check and try again !' );
+	}
+
+	if( !defined( 'SWBIGNEWS_THEME_CUSTOM_SIDEBAR_NAME' ) ) {
+		slz_die ( 'Undefined custom sidebar in this theme. Please check and try again !' );
+	}
+	
 	?>
 	<div class="slz_home">
 		<h1><?php esc_html_e('Solazu Exporter', 'slz_exporter'); ?></h1>
@@ -187,6 +196,7 @@ function slz_index(){
 		</div>
 	</div>
  <?php
+ slz_generate_custom_widget_data();
 }
 
 ?>

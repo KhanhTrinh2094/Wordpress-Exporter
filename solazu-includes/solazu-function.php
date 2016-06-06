@@ -121,6 +121,119 @@ function slz_generate_widget_data() {
 
 }
 
+/**
+ * Available custom widgets
+ *
+ * Gather site's widgets into array with ID base, name, etc.
+ * Used by export and import functions.
+ *
+ * @since 1.0
+ * @return array Widget information
+ */
+function slz_available_custom_widgets() {
+
+	$sidebar_name = (defined('SWBIGNEWS_THEME_CUSTOM_SIDEBAR_NAME') ? SWBIGNEWS_THEME_CUSTOM_SIDEBAR_NAME : 'swbignews_custom_sidebar');
+	$available_widgets = array();
+	$data = get_option($sidebar_name);
+
+	if(empty($data)) return array();
+
+	foreach ( $data as $widget ) {
+
+		if ( ! empty( $widget['name'] ) && ! isset( $available_widgets[$widget['name']] ) ) { // no dupes
+
+			$available_widgets[$widget['name']]['id_base'] = $widget['name'];
+			$available_widgets[$widget['name']]['name'] = $widget['title'];
+
+		}
+
+	}
+
+
+	echo '<pre>';
+	var_dump($available_widgets);
+	exit;
+
+	return apply_filters( 'slz_available_widgets', $available_widgets );
+
+}
+
+/**
+ * Generate export custom widget data
+ *
+ * @since 1.0
+ * @return string Export file contents
+ */
+function slz_generate_custom_widget_data() {
+
+	// Get all available widgets site supports
+	$available_widgets = slz_available_widgets();
+
+	// Get all widget instances for each widget
+	$widget_instances = array();
+	foreach ( $available_widgets as $widget_data ) {
+
+		// Get all instances for this ID base
+		$instances = get_option( 'widget_' . $widget_data['id_base'] );
+
+		// Have instances
+		if ( ! empty( $instances ) ) {
+
+			// Loop instances
+			foreach ( $instances as $instance_id => $instance_data ) {
+
+				// Key is ID (not _multiwidget)
+				if ( is_numeric( $instance_id ) ) {
+					$unique_instance_id = $widget_data['id_base'] . '-' . $instance_id;
+					$widget_instances[$unique_instance_id] = $instance_data;
+				}
+
+			}
+
+		}
+
+	}
+
+	// Gather sidebars with their widget instances
+	$sidebars_widgets = get_option( 'sidebars_widgets' ); // get sidebars and their unique widgets IDs
+
+	$sidebars_widget_instances = array();
+	foreach ( $sidebars_widgets as $sidebar_id => $widget_ids ) {
+
+		// Skip inactive widgets
+		if ( 'wp_inactive_widgets' == $sidebar_id ) {
+			continue;
+		}
+
+		// Skip if no data or not an array (array_version)
+		if ( ! is_array( $widget_ids ) || empty( $widget_ids ) ) {
+			continue;
+		}
+
+		// Loop widget IDs for this sidebar
+		foreach ( $widget_ids as $widget_id ) {
+
+			// Is there an instance for this widget ID?
+			if ( isset( $widget_instances[$widget_id] ) ) {
+				// Add to array
+				$sidebars_widget_instances[$sidebar_id][$widget_id] = $widget_instances[$widget_id];
+
+			}
+
+		}
+
+	}
+
+	// Filter pre-encoded data
+	$data = apply_filters( 'slz_unencoded_export_data', $sidebars_widget_instances );
+
+	// Encode the data for file contents
+	$encoded_data = json_encode( $data );
+
+	// Return contents
+	return apply_filters( 'slz_generate_export_data', $encoded_data );
+
+}
 
 /**
  * Save file to directory
@@ -255,6 +368,7 @@ function post_excute(){
 		}
 		$date = date( 'Y-m-d' );
 		$zip_filename = $sitename . 'wordpress.' . $date . '.zip';
+		$sidebar_name = (defined('SWBIGNEWS_THEME_CUSTOM_SIDEBAR_NAME') ? SWBIGNEWS_THEME_CUSTOM_SIDEBAR_NAME : 'swbignews_custom_sidebar');
 
 		// save wordpress content to xml file
 		slz_save_file( $temp_dir . $post_data['wordpress_content_file'], slz_export_wp( array( "content" => "all" ) ) );
@@ -267,7 +381,7 @@ function post_excute(){
 		// save exporter config data to config file
 		slz_save_file( $temp_dir . 'config.json', json_encode ( $post_data ) );
 		// save shinway custom sidebar to file
-		slz_save_file( $temp_dir . $post_data['custom_sidebar_file'], json_encode ( get_option(SWBIGNEWS_THEME_CUSTOM_SIDEBAR_NAME) ) );
+		slz_save_file( $temp_dir . $post_data['custom_sidebar_file'], json_encode ( get_option( $sidebar_name ) ) );
 
 
 		// zip execute
@@ -321,5 +435,26 @@ function get_excute(){
 	
 }
 
+
+/**
+ * Display error message
+ *
+ * @param string $message message to display
+ * @since 1.0
+ */
+function slz_die( $message ) {
+
+	wp_die(
+		wp_kses(
+			__( $message, 'slz_exporter' ),
+			array(
+				'b' => array()
+			)
+		),
+		'',
+		array( 'back_link' => true )
+	);
+
+}
 
 ?>
