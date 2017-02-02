@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Solazu Exporter
-Plugin URI: https://www.facebook.com/nguyencanh.khanhtrinh.7
-Description: Solazu Exporter by Trinh.NCK
+Plugin URI: http://themeforest.net/user/swlabs
+Description: Solazu Exporter Plugin for Swlabs Themes
 Version: 1.0
-Author: Trinh.NCK
-Author URI: https://www.facebook.com/nguyencanh.khanhtrinh.7
+Author: Swlabs
+Author URI: http://themeforest.net/user/swlabs
 Text Domain: slz-exporter
 */
 
@@ -69,10 +69,11 @@ if( class_exists('Solazu_Exporter') === false ){
 					// Functions
 					// ABSPATH . 'wp-admin/includes/export.php',
 					ABSPATH . 'wp-admin/includes/plugin.php',
-					plugin_dir_path( __FILE__ ) . '/solazu-includes/solazu-page.php',
-					plugin_dir_path( __FILE__ ) . '/solazu-includes/solazu-menu.php',
-					plugin_dir_path( __FILE__ ) . '/solazu-includes/solazu-function.php',
-					plugin_dir_path( __FILE__ ) . '/solazu-includes/solazu-export.php'
+					plugin_dir_path( __FILE__ ) . '/slz-includes/slz-page.php',
+					plugin_dir_path( __FILE__ ) . '/slz-includes/slz-menu.php',
+					plugin_dir_path( __FILE__ ) . '/slz-includes/slz-function.php',
+					plugin_dir_path( __FILE__ ) . '/slz-includes/slz-export.php',
+					plugin_dir_path( __FILE__ ) . '/slz-includes/slz-importer.php'
 
 				)
 
@@ -88,7 +89,7 @@ if( class_exists('Solazu_Exporter') === false ){
 		 */
 		public function slz_load_script(){
 
-			wp_enqueue_script('slz_main_script', plugins_url( 'solazu-scripts/solazu-main.js', __FILE__ ), array('jquery', 'jquery-ui-accordion'));
+			
 
 		}
 
@@ -100,7 +101,7 @@ if( class_exists('Solazu_Exporter') === false ){
 		 */
 		public function slz_load_style(){
 
-			wp_enqueue_style('slz_main_stylesheet', plugins_url( 'solazu-css/solazu-styles.css', __FILE__ ));
+			
 			
 		}
 
@@ -114,6 +115,9 @@ if( class_exists('Solazu_Exporter') === false ){
 
 			add_action( 'load-tools_page_slz_exporter', 'post_excute' );
 			add_action( 'load-tools_page_slz_exporter', 'get_excute' );
+
+			add_action( 'load-tools_page_slz_importer', 'post_excute' );
+			add_action( 'load-tools_page_slz_importer', 'get_excute' );
 			
 		}
 
